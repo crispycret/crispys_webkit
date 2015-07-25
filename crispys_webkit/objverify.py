@@ -1,0 +1,70 @@
+import requests
+from bs4 import BeautifulSoup as BS
+
+from .objprope import get_cls, get_cls_name
+
+
+__doc__ = \
+""" 
+Wrapping the isinstance method, verify an objects type.
+If an object is not of the specified type raise a TypeError.
+Ignoring the error is possible by providing a True value to the optional
+ignore parameter in the function calls.  
+"""
+
+
+def is_type_of(cls, obj, ignore=False):
+	""" Checks if an object is/of a specified class """
+	if isinstance(cls, obj):
+		return True
+	elif ignore: 
+		return False
+	raise TypeError('%r is not of type %r' % (get_cls(obj), cls))
+
+
+def has_attr_of_type(obj, attrname, cls, ignore=False):
+	""" 
+	Checks if an object has a specified attribute, and checks if the
+	attribute is of a specified type.
+	"""
+	type_error = False
+	if hasattr(obj, attrname):
+		attr = getattr(obj, attrname)
+		if is_type_of(cls, attr, ignore=True): 
+			return True
+		type_error = True
+	
+	elif ignore: 
+		return False
+	elif type_error:
+		raise TypeError('%s is of type %r, expected type %r' %\
+			('%s.%s' % (get_cls_name(obj), attrname), get_cls(attr), cls))
+	raise AttributeError('%r has no attribute `%s`' % (get_cls(obj), attrname))
+
+
+
+
+def is_dict(obj, ignore=False):
+	""" Checks if an object is type dict """
+	return is_type_of(dict, obj, ignore)
+
+
+def is_soup(obj, ignore=False):
+	""" Checks if an object is type BeautifulSoup """
+	return is_type_of(BS, obj, ignore)
+
+def has_soup(obj, ignore=False):
+	return has_attr_of_type(obj, 'soup', BS, ignore)
+
+
+def is_response(obj, ignore=False):
+	""" Checks if an object is of type requests.Response """
+	return is_type_of(requests.Response, obj, ignore)
+
+def has_response(obj, ignore=False):
+	return has_attr_of_type(obj, 'response', requests.Response, ignore)
+
+
+def has_headers(obj, ignore=False):
+	return has_attr_of_type(obj, 'headers', dict, ignore)
+
