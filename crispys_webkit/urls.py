@@ -23,6 +23,7 @@ class LazyUrl(object):
 		for p in (self.scheme, self.host, self.path, 
 		self.params, self.query, self.fragment,):
 			yield p
+
 	def __eq__(self, other):
 		if other == self.url:
 			return self.url == True
@@ -62,7 +63,7 @@ class LazyUrl(object):
 		""" Replace the url, check if it's valid, attempt a fix  """
 		self.url = url
 		self.parse_url()
-		self.diagnose_fix_url()
+		self._fix_broken_url()
 
 	def set_scheme(self, scheme, join=True):
 		""" Add/Replace the url scheme """
@@ -99,7 +100,7 @@ class LazyUrl(object):
 
 	### Prope / Inspection Mehods #############################
 	def print_overview(self, url=None):
-		if isinstance(urlparse.ParseResult, url):
+		if isinstance(url, urlparse.ParseResult):
 			url.host = url.netloc
 			url.url = url.geturl()
 		else:
@@ -126,7 +127,6 @@ class LazyUrl(object):
 		"""
 		self.scheme, self.host, self.path, self.params,\
 		self.query, self.fragment = urlparse.urlparse(self.url)
-		self.print_overview()
 
 	def _fix_broken_url(self, output_results=False):
 		""" Locate any bugs in the url, and attempt to fix them. """
@@ -156,6 +156,7 @@ class LazyUrl(object):
 
 	###########################################################
 ################################################################################
+
 
 
 
