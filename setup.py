@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
 	name='crispys_webkit',
-	version='0.1.120a',
+	version='0.1.13',
 
 	author ='Brandon Nadeau',
 	author_email='brandonmnadeau@hotmail.com',
