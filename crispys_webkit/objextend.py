@@ -1,7 +1,7 @@
 """
 Extend an object by adding an attribute or method.
 """
-from django.template.defaultfilters import slugify
+from slugify import slugify
 
 from . import objverify
 from .objprope import get_cls

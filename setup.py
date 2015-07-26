@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
 	name='crispys_webkit',
-	version='0.1.0',
+	version='0.1.1',
 
 	author ='Brandon Nadeau',
 	author_email='brandonmnadeau@hotmail.com',
@@ -20,7 +20,7 @@ setup(
 	install_requires = [
 		'requests',
 		'beautifulsoup4',
-		'django',
+		'python-slugify',
 	],
 
 	zip_safe=False,
