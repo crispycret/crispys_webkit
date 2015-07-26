@@ -1,14 +1,14 @@
 
 
-def get_cls(obj): 
+def get_class(obj): 
 	return obj.__class__
 
-def get_cls_name(obj): 
+def get_class_name(obj): 
 	return obj.__class__.__name__
 
 
 
-def get_methods_on_cls(cls):
+def get_methods_on_class(cls):
 	""" 
 	Returns a list of tuples containing of all the method names and methods in a class 
 	i.e [(method_name1, method1), (method_name2, method2), ...]

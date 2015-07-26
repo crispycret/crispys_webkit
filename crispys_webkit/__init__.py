@@ -1,4 +1,4 @@
-from .objprope import get_cls, get_cls_name, get_methods_on_cls
+from .objprope import get_class, get_class_name, get_methods_on_class
 
 from .objverify import is_type_of, is_dict, is_lazy_url, is_soup, is_response
 from .objverify import has_attr_of_type, has_soup, has_response, has_headers

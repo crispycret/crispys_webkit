@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup as BS
 
 from .urls import LazyUrl
-from .objprope import get_cls, get_cls_name
+from .objprope import get_class, get_class_name
 
 
 __doc__ = \
@@ -20,7 +20,7 @@ def is_type_of(obj, cls, ignore=False):
 		return True
 	elif ignore: 
 		return False
-	raise TypeError('%r is not of type %r' % (get_cls(obj), cls))
+	raise TypeError('%r is not of type %r' % (get_class(obj), cls))
 
 
 def has_attr_of_type(obj, attrname, cls, ignore=False):
@@ -39,8 +39,8 @@ def has_attr_of_type(obj, attrname, cls, ignore=False):
 		return False
 	elif type_error:
 		raise TypeError('%s is of type %r, expected type %r' %\
-			('%s.%s' % (get_cls_name(obj), attrname), get_cls(attr), cls))
-	raise AttributeError('%r has no attribute `%s`' % (get_cls(obj), attrname))
+			('%s.%s' % (get_class_name(obj), attrname), get_class(attr), cls))
+	raise AttributeError('%r has no attribute `%s`' % (get_class(obj), attrname))
 
 
 
