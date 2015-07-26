@@ -4,7 +4,7 @@ Extend an object by adding an attribute or method.
 from slugify import slugify
 
 from . import objverify
-from .objprope import get_cls
+from .objprope import get_class
 
 
 def validate_attribute_name(name):
@@ -83,7 +83,7 @@ def make_get_has_header_methods_for_obj_with_response(obj):
 	###############################################################
 
 
-	obj_cls = get_cls(obj)
+	obj_cls = get_class(obj)
 	for header_name in self.response.headers:
 		_has_method = _make_method(header_name, create_has_method=True)
 		_get_method = _make_method(header_name, create_has_method=False)
