@@ -19,6 +19,19 @@ def add_attribute(cls, attr_name, attr_value):
 	setattr(cls, attr_name, attr_value)
 
 
+#  Code solution from: http://stackoverflow.com/questions/20078816/replace-non-ascii-characters-with-a-single-space
+def remove_non_ascii(text, replacement=' '):
+	""" 
+	When mining for data, you may come across special characters
+	that will raise a 'UnicodeEncodeError', this may include printing, 
+	storing in a database or other reasons.
+	
+	Call the function, passing the inflicted string, to replace those characters 
+	with, by default a space. Instead of a space the second paramater, which is
+	optional allows you to specify the replacement character.
+	""" 
+	return str(re.sub( r'[^\x00-\x7F]+', replacement, text ))
+
 
 
 
