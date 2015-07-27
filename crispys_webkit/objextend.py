@@ -46,10 +46,6 @@ def make_get_has_header_methods_for_obj_with_response(obj):
 
 	objverify.has_response(obj)
 	objverify.has_headers(obj.response)
-	if not hasattr(cls, 'response'):
-		raise AttributeError('The instance of %r has no attribute `response`' % cls) 
-	elif not hasattr(cls.response, 'headers'): 
-		raise AttributeError('%r instance\'s `response` attribute has no attribute `headers`' % cls) 
 
 	#### Methods Wrapper ##########################################
 	def _make_method(header_name, create_has_method=True):
@@ -84,7 +80,7 @@ def make_get_has_header_methods_for_obj_with_response(obj):
 
 
 	obj_cls = get_class(obj)
-	for header_name in self.response.headers:
+	for header_name in obj.response.headers:
 		_has_method = _make_method(header_name, create_has_method=True)
 		_get_method = _make_method(header_name, create_has_method=False)
 		setattr(obj_cls, _has_method.__name__, _has_method)

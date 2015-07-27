@@ -1,8 +1,8 @@
 import requests
 from bs4 import BeautifulSoup as BS
 
-from .urls import LazyUrl
-from .objprope import get_class, get_class_name
+from urls import LazyUrl
+from objprope import get_class, get_class_name
 
 
 __doc__ = \
@@ -14,24 +14,25 @@ ignore parameter in the function calls.
 """
 
 
-def is_type_of(cls, obj, ignore=False):
+def is_type_of(obj, cls, ignore=False):
 	""" Checks if an object is/of a specified class """
-	if isinstance(cls, obj):
+	# print obj, get_class_name(obj)
+	if isinstance(obj, cls):
 		return True
 	elif ignore: 
 		return False
 	raise TypeError('%r is not of type %r' % (get_class(obj), cls))
 
 
-def has_attr_of_type(obj, attrname, cls, ignore=False):
-	""" 
+def has_attr_of_type(obj, attrname, cls, ignore=False): 
+	"""
 	Checks if an object has a specified attribute, and checks if the
 	attribute is of a specified type.
 	"""
-	type_error = False
+	type_error = False	
 	if hasattr(obj, attrname):
 		attr = getattr(obj, attrname)
-		if is_type_of(cls, attr, ignore=True): 
+		if is_type_of(attr, cls, ignore=True): 
 			return True
 		type_error = True
 	
@@ -47,19 +48,20 @@ def has_attr_of_type(obj, attrname, cls, ignore=False):
 
 def is_dict(obj, ignore=False):
 	""" Checks if an object is type dict """
-	return is_type_of(dict, obj, ignore)
+	return is_type_of(obj, dict, ignore)
 
 def is_lazy_url(obj, ignore=False):
+
 	""" Check if an object is type LazyUrl """
-	return is_type_of(LazyUrl, obj, ignore)
+	return is_type_of(obj, LazyUrl, ignore)
 
 def is_soup(obj, ignore=False):
 	""" Checks if an object is type BeautifulSoup """
-	return is_type_of(BS, obj, ignore)
+	return is_type_of(obj, BS, ignore)
 
 def is_response(obj, ignore=False):
 	""" Checks if an object is of type requests.Response """
-	return is_type_of(requests.Response, obj, ignore)
+	return is_type_of(obj, requests.Response, ignore)
 
 
 
@@ -70,5 +72,5 @@ def has_response(obj, ignore=False):
 	return has_attr_of_type(obj, 'response', requests.Response, ignore)
 
 def has_headers(obj, ignore=False):
-	return has_attr_of_type(obj, 'headers', dict, ignore)
+	return has_attr_of_type(obj, 'headers', requests.structures.CaseInsensitiveDict, ignore)
 
