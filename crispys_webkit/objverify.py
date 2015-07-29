@@ -46,12 +46,20 @@ def has_attr_of_type(obj, attrname, cls, ignore=False):
 
 
 
+def is_int(obj, ignore=False):
+	""" Check if and object is type int """
+	return is_type_of(obj, int, ignore)
+def is_str(obj, ignore=False):
+	""" Check if and object is type str """
+	return is_type_of(obj, str, ignore)
+def is_list(obj, ignore=False):
+	""" Check if and object is type list """
+	return is_type_of(obj, list, ignore)
 def is_dict(obj, ignore=False):
 	""" Checks if an object is type dict """
 	return is_type_of(obj, dict, ignore)
 
 def is_lazy_url(obj, ignore=False):
-
 	""" Check if an object is type LazyUrl """
 	return is_type_of(obj, LazyUrl, ignore)
 
