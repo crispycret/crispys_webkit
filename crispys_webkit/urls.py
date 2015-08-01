@@ -1,6 +1,18 @@
 import os
 import urlparse
+from .objverify import is_type_of, is_str
 from .exceptions import SchemeError, HostError
+
+
+
+
+def is_lazy_url(obj, ignore=False):
+	""" Check if an object is type LazyUrl """
+	return is_type_of(obj, LazyUrl, ignore)
+def is_lazy_path(obj, ignore=False):
+	""" Check if an object is type LazyPath """
+	return is_type_of(obj, LazyPath, ignore)
+
 
 
 def show_cur_path(_file_):
@@ -242,7 +254,7 @@ class LazyPath(object):
 	def _join_fname(self): 
 		self.fname = '.'.join(self.fname)
 	def _join_fname_and_makedirs(self): 
-		self._pop_filename()
+		self._join_fname()
 		self.makedirs()
 
 

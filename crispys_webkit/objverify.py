@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup as BS
 
-from .urls import LazyUrl, LazyPath
 from .objprope import get_class, get_class_name
 
 
@@ -58,13 +57,6 @@ def is_list(obj, ignore=False):
 def is_dict(obj, ignore=False):
 	""" Checks if an object is type dict """
 	return is_type_of(obj, dict, ignore)
-
-def is_lazy_url(obj, ignore=False):
-	""" Check if an object is type LazyUrl """
-	return is_type_of(obj, LazyUrl, ignore)
-def is_lazy_path(obj, ignore=False):
-	""" Check if an object is type LazyPath """
-	return is_type_of(obj, LazyPath, ignore)
 
 def is_soup(obj, ignore=False):
 	""" Checks if an object is type BeautifulSoup """
