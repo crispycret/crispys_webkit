@@ -220,9 +220,9 @@ class LazyPath(object):
 		""" Examine the extension to see how to download the file """
 		if self.ext in self._text_extensions:
 			self.save_text_file(data)
-		elif self.ext is in self._image_extensions:
+		elif self.ext in self._image_extensions:
 			self.save_binary_file(data)
-		elif self.ext is in self._compressed_extensions:
+		elif self.ext in self._compressed_extensions:
 			pass#self.save_compreessed_file(data)
 
 	def write_and_close(self, file, data):
