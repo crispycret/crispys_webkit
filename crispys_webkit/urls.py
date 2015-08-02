@@ -1,7 +1,8 @@
-import os
+import os, errno
 import urlparse
-from .objverify import is_type_of, is_str
+
 from .exceptions import SchemeError, HostError
+from .objverify import is_type_of, is_str
 
 
 
@@ -14,9 +15,9 @@ def is_lazy_path(obj, ignore=False):
 	return is_type_of(obj, LazyPath, ignore)
 
 
-
 def show_cur_path(_file_):
 	print os.path.abspath(_file_)
+
 
 ### URL API ####################################################################
 class LazyUrl(object):
@@ -57,7 +58,7 @@ class LazyUrl(object):
 		self.join_url()
 
 	def set_scheme(self, scheme, join=True):
-		self.scheme = scheme
+		self.scheme = scheme if scheme in self.allowed_schemes else 'http'
 		self.join_url(join)
 	def set_host(self, host, join=True):
 		self.host = host
@@ -94,6 +95,7 @@ class LazyUrl(object):
 		self.set_params('', False)
 		self.set_query('', False)
 		self.set_fragment('', False)
+		self.join_url()
 	################################################################
 
 	### Validation #################################################
@@ -224,7 +226,20 @@ class LazyPath(object):
 		return self.cwd
 
 	def makedirs(self):
-		os.makedirs(self.getpath())
+		dirs = self.rel.split(os.sep)
+		dirs = [d for d in dirs if d]
+		if not dirs: return
+
+		for i, d in enumerate(dirs):
+			path = os.sep.join(dirs[:i+1])
+			try:
+				os.mkdir(path)
+			except OSError, e:
+				if e.errno not in [errno.EEXIST, errno.EACCES, 
+				errno.ENOSPC, errno.EROFS]:
+					raise e
+				pass
+		return
 
 
 	### File Operations #################################
